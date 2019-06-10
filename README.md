@@ -1,6 +1,5 @@
-33.phar file contains inside one file test.php
+33.phar file contains inside one file test.php with
 
-<?php
 echo "OK";
 
 index.php just includes this file and we get expected "OK" output in browser.
