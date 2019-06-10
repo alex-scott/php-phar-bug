@@ -9,7 +9,7 @@ echo "OK";
 index.php just includes this file and we get expected "OK" output in browser.
 It works fine on plain PHP without opcache.
 
-With opcache + "opcache.validate_permission=1" configured, we get "OK" on first run,
+With opcache + *opcache.validate_permission=1* configured, we get "OK" on first run,
 and error on all following requests. After restart of docker, we get one succesfull
 run and then failing again.
 
