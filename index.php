@@ -7,8 +7,15 @@ error_reporting(E_ALL | E_NOTICE);
 //include ('phar://' . __DIR__ . '/33.phar/test.php');
 
 
-function am_include_once($path, $require = false)
+function am_require_once($path, $require = true)
 {
+    if (!defined('AM_PHAR_WORKAROUND'))
+    {
+        define('AM_PHAR_WORKAROUND',
+            extension_loaded('Zend OPcache')
+            && ini_get('opcache.enable')
+            && ini_get('opcache.validate_permission'));
+    }
     if (
         (defined('AM_PHAR_WORKAROUND') && !AM_PHAR_WORKAROUND)
         || !preg_match($x = '#^phar://(.+\.phar)(.+)$#', $path, $match)) //\/\/([a-zA-Z0-9_-]+\.phar)(.+)
@@ -32,9 +39,9 @@ function am_include_once($path, $require = false)
     return $require ? require_once $newPath : include_once $newPath;
 }
 
-function am_require_once($path)
+function am_include_once($path)
 {
-    return am_include_once($path, true);
+    return am_require_once($path, false);
 }
 
 am_include_once('phar://'.__DIR__ . '/33.phar'.'/test.php');
