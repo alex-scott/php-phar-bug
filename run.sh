@@ -1,5 +1,7 @@
 #!/bin/bash
 
+./build-phar/build.sh
+
 docker build -t php-bug-test .
 docker run -d -p 8011:80 php-bug-test
 
